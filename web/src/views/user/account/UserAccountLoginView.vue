@@ -1,5 +1,5 @@
 <template>
-    <ContentField v-if="!$store.state.user.pulling_info">
+    <ContentField>
         <div class="row justify-content-md-center">
             <div class="col-3">
                 <form @submit.prevent="login">
@@ -14,11 +14,6 @@
                     <div class="error-message">{{ error_message }}</div>
                     <button type="submit" class="btn btn-primary">提交</button>
                 </form>
-                <div style="text-align: center; margin-top: 20px; cursor: pointer;" @click="acwing_login">
-                    <img width="30" src="https://cdn.acwing.com/media/article/image/2022/09/06/1_32f001fd2d-acwing_logo.png" alt="">
-                    <br>
-                    AcWing一键登录
-                </div>
             </div>
         </div>
     </ContentField>
@@ -29,7 +24,6 @@ import ContentField from '../../../components/ContentField.vue'
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 import router from '../../../router/index'
-import $ from 'jquery'
 
 export default {
     components: {
@@ -41,22 +35,6 @@ export default {
         let password = ref('');
         let error_message = ref('');
 
-        const jwt_token = localStorage.getItem("jwt_token");
-        if (jwt_token) {
-            store.commit("updateToken", jwt_token);
-            store.dispatch("getinfo", {
-                success() {
-                    router.push({ name: "home" });
-                    store.commit("updatePullingInfo", false);
-                },
-                error() {
-                    store.commit("updatePullingInfo", false);
-                }
-            })
-        } else {
-            store.commit("updatePullingInfo", false);
-        }
-
         const login = () => {
             error_message.value = "";
             store.dispatch("login", {
@@ -66,6 +44,7 @@ export default {
                     store.dispatch("getinfo", {
                         success() {
                             router.push({ name: 'home' });
+                            console.log(store.state.user);
                         }
                     })
                 },
@@ -75,24 +54,11 @@ export default {
             })
         }
 
-        const acwing_login = () => {
-            $.ajax({
-                url: "https://app2703.acapp.acwing.com.cn/api/user/account/acwing/web/apply_code/",
-                type: "GET",
-                success: resp => {
-                    if (resp.result === "success") {
-                        window.location.replace(resp.apply_code_url);
-                    }
-                }
-            })
-        }
-
         return {
             username,
             password,
             error_message,
             login,
-            acwing_login,
         }
     }
 }
