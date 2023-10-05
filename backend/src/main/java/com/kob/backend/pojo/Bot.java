@@ -20,8 +20,8 @@ public class Bot {
     private String description;
     private String content;
     private Integer rating;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")//日期展示格式
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")//日期展示格式
     private Date createtime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")//日期展示格式
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "Asia/Shanghai")//日期展示格式
     private Date modifytime;
 }
