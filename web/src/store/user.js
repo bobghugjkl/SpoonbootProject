@@ -7,13 +7,11 @@ export default {
         photo: "",
         token: "",
         is_login: false,
-        pulling_info: true,//是否正在拉取信息
+        pulling_info: true,  // 是否正在从云端拉取信息
     },
     getters: {
     },
     mutations: {
-        //同步操作
-        //用commit
         updateUser(state, user) {
             state.id = user.id;
             state.username = user.username;
@@ -35,8 +33,6 @@ export default {
         }
     },
     actions: {
-        //从云端拉取信息，然后才能进行=>异步操作
-        //用dispatch
         login(context, data) {
             $.ajax({
                 url: "http://127.0.0.1:3000/user/account/token/",
@@ -47,8 +43,7 @@ export default {
                 },
                 success(resp) {
                     if (resp.error_message === "success") {
-                        //token都存在浏览器的一小块云盘空间
-                        localStorage.setItem("jwt_token",resp.token)
+                        localStorage.setItem("jwt_token", resp.token);
                         context.commit("updateToken", resp.token);
                         data.success(resp);
                     } else {

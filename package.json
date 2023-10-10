@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@vscode/windows-registry": "^1.1.0"
+  }
+}
