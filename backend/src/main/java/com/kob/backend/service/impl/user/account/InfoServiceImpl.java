@@ -15,7 +15,8 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public Map<String, String> getinfo() {
         //如果登陆成功，会提取一堆东西，这些API直接背过
-        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        UsernamePasswordAuthenticationToken authentication =
+                (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         //这样就可以找到user
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();//强制类型转换
         User user = loginUser.getUser();//这样可以返回信息
