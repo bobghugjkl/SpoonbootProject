@@ -263,6 +263,10 @@ public class Game extends Thread{//转为多线程的类
         }
         return res.toString();
     }
+    private void updateUserRating(Player player,Integer rating)
+    {
+
+    }
     private void saveToDatebase(){
         Record record = new Record(
                 null,
